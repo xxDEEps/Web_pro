@@ -1,0 +1,258 @@
+import type { QuizQuestion } from "./types"
+
+export const quizzes: QuizQuestion[] = [
+  // Introduction
+  {
+    id: "intro-1",
+    topicSlug: "introduction",
+    question: "In object-oriented design, what does the 'is-a-kind-of' relationship represent?",
+    options: ["Composition", "Inheritance", "Dependency", "Encapsulation"],
+    correctIndex: 1,
+    explanation: "The is-a-kind-of relationship (e.g. a Hybrid Course is a kind of Course) is modelled with inheritance.",
+  },
+  {
+    id: "intro-2",
+    topicSlug: "introduction",
+    question: "Which UML symbol denotes a private member?",
+    options: ["+", "#", "-", "~"],
+    correctIndex: 2,
+    explanation: "In UML, '-' denotes private, '+' public, '#' protected and blank means default (package) visibility.",
+  },
+  {
+    id: "intro-3",
+    topicSlug: "introduction",
+    question: "What is the shared structure of a set of similar objects called?",
+    options: ["An instance", "A package", "A class", "A method"],
+    correctIndex: 2,
+    explanation: "The shared structure (data and logic) of similar objects is called their class; each object is an instance of it.",
+  },
+  // Foundations
+  {
+    id: "found-1",
+    topicSlug: "foundations",
+    question: "Which of the following is a reference type in Java?",
+    options: ["int", "char", "boolean", "String"],
+    correctIndex: 3,
+    explanation: "String is a class (reference) type. int, char and boolean are primitive types.",
+  },
+  {
+    id: "found-2",
+    topicSlug: "foundations",
+    question: "What is the default value of any reference variable?",
+    options: ["0", "null", "undefined", "empty string"],
+    correctIndex: 1,
+    explanation: "Reference variables only store an address; their default value is null.",
+  },
+  {
+    id: "found-3",
+    topicSlug: "foundations",
+    question: "For an array of length 5, what is the range of valid indices?",
+    options: ["1 to 5", "0 to 5", "0 to 4", "1 to 4"],
+    correctIndex: 2,
+    explanation: "Indices run from 0 to length - 1, so 0 to 4. Accessing index 5 throws ArrayIndexOutOfBoundsException.",
+  },
+  // Standard I/O
+  {
+    id: "io-1",
+    topicSlug: "standard-io",
+    question: "Which standard stream is accessed through System.in?",
+    options: ["Standard Output", "Standard Error", "Standard Input", "File Stream"],
+    correctIndex: 2,
+    explanation: "System.in is Standard Input, System.out is Standard Output and System.err is Standard Error.",
+  },
+  {
+    id: "io-2",
+    topicSlug: "standard-io",
+    question: "Which Scanner method reads an entire line as a String?",
+    options: ["nextInt()", "nextLine()", "nextDouble()", "next()"],
+    correctIndex: 1,
+    explanation: "nextLine() reads a String value from the user. nextInt() and nextDouble() read numeric types.",
+  },
+  // Exception Handling
+  {
+    id: "exc-1",
+    topicSlug: "exception-handling",
+    question: "Which type of exception is checked at compile time?",
+    options: ["Runtime exception", "Checked exception", "Unchecked exception", "Error"],
+    correctIndex: 1,
+    explanation: "Checked exceptions are verified at compile time and must be handled with try-catch or declared with throws.",
+  },
+  {
+    id: "exc-2",
+    topicSlug: "exception-handling",
+    question: "Which block always executes after try...catch, regardless of the result?",
+    options: ["catch", "finally", "throws", "throw"],
+    correctIndex: 1,
+    explanation: "The finally block executes regardless of whether an exception occurred. It cannot exist without a try block.",
+  },
+  {
+    id: "exc-3",
+    topicSlug: "exception-handling",
+    question: "Accessing element 6 of a size-5 array produces which exception?",
+    options: ["FileNotFoundException", "NullPointerException", "ArrayIndexOutOfBoundsException", "ArithmeticException"],
+    correctIndex: 2,
+    explanation: "Reading an index beyond the array bounds throws an ArrayIndexOutOfBoundsException, an unchecked (runtime) exception.",
+  },
+  // Memory Management
+  {
+    id: "mem-1",
+    topicSlug: "memory-management",
+    question: "Where are objects created with 'new' allocated?",
+    options: ["The stack", "The heap", "The static area", "CPU registers"],
+    correctIndex: 1,
+    explanation: "Objects are allocated on the dynamic heap and have a longer lifetime; local variables live on the stack.",
+  },
+  {
+    id: "mem-2",
+    topicSlug: "memory-management",
+    question: "Who is responsible for deallocating unused objects in Java?",
+    options: ["The programmer via free()", "The compiler", "The garbage collector", "The operating system"],
+    correctIndex: 2,
+    explanation: "Java never frees memory explicitly; the garbage collector automatically reclaims unused objects.",
+  },
+  // Encapsulation
+  {
+    id: "enc-1",
+    topicSlug: "encapsulation",
+    question: "What keyword restricts a field so other classes cannot access it directly?",
+    options: ["public", "private", "static", "final"],
+    correctIndex: 1,
+    explanation: "The private modifier restricts access to within the class itself, the core of encapsulation.",
+  },
+  {
+    id: "enc-2",
+    topicSlug: "encapsulation",
+    question: "What is the primary job of a constructor?",
+    options: ["Free memory", "Initialise an object", "Override a method", "Import a package"],
+    correctIndex: 1,
+    explanation: "A constructor initialises a new object. Multiple constructors can be overloaded for different scenarios.",
+  },
+  {
+    id: "enc-3",
+    topicSlug: "encapsulation",
+    question: "What does the 'this' keyword refer to?",
+    options: ["The superclass", "The current object", "A static variable", "The main method"],
+    correctIndex: 1,
+    explanation: "this refers to the current object, often used to distinguish a field from a same-named parameter.",
+  },
+  // Inheritance
+  {
+    id: "inh-1",
+    topicSlug: "inheritance",
+    question: "Which keyword implements inheritance (the is-a relationship) in Java?",
+    options: ["implements", "extends", "inherits", "super"],
+    correctIndex: 1,
+    explanation: "A subclass uses extends to inherit the entire structure of its superclass.",
+  },
+  {
+    id: "inh-2",
+    topicSlug: "inheritance",
+    question: "Which operator tests whether an object is an instance of a class?",
+    options: ["typeof", "instanceof", "iskindof", "extends"],
+    correctIndex: 1,
+    explanation: "instanceof tests an object's type and is often used before a safe downcast.",
+  },
+  // Polymorphism
+  {
+    id: "poly-1",
+    topicSlug: "polymorphism",
+    question: "What distinguishes overloaded methods from one another?",
+    options: ["Return type only", "Method name", "Parameter signature", "Access modifier"],
+    correctIndex: 2,
+    explanation: "Overloaded methods share a name but must differ in their parameter signature. Return type alone is not enough.",
+  },
+  {
+    id: "poly-2",
+    topicSlug: "polymorphism",
+    question: "Which statement about an abstract class is true?",
+    options: [
+      "It can be instantiated directly with new",
+      "It cannot contain any methods",
+      "It cannot be instantiated directly",
+      "It cannot be extended",
+    ],
+    correctIndex: 2,
+    explanation: "An abstract class cannot be instantiated directly, but its references can hold subclass objects.",
+  },
+  {
+    id: "poly-3",
+    topicSlug: "polymorphism",
+    question: "Which keyword lets a class connect to an interface?",
+    options: ["extends", "implements", "abstract", "override"],
+    correctIndex: 1,
+    explanation: "A class uses implements to connect to one or more interfaces.",
+  },
+  // Array of Objects
+  {
+    id: "aoo-1",
+    topicSlug: "array-of-objects",
+    question: "In an array of superclass references, the static type of the elements is:",
+    options: ["The subclass type", "The superclass type", "Object always", "Determined at run time"],
+    correctIndex: 1,
+    explanation: "Elements share the superclass static type, while their dynamic type may differ per element.",
+  },
+  {
+    id: "aoo-2",
+    topicSlug: "array-of-objects",
+    question: "Which is NOT one of the basic array-of-objects operations?",
+    options: ["Add an object", "Search an object", "Compile an object", "Delete an object"],
+    correctIndex: 2,
+    explanation: "The basic operations are add, delete, search, update and traverse. 'Compile' is not an operation.",
+  },
+  // File I/O
+  {
+    id: "file-1",
+    topicSlug: "file-io",
+    question: "What is the advantage of try-with-resources for file streams?",
+    options: [
+      "It runs faster",
+      "It closes the stream automatically",
+      "It ignores exceptions",
+      "It avoids importing java.io",
+    ],
+    correctIndex: 1,
+    explanation: "try-with-resources closes the stream automatically, even if an exception is thrown.",
+  },
+  {
+    id: "file-2",
+    topicSlug: "file-io",
+    question: "Which exception must you handle when a file may not exist?",
+    options: ["ArithmeticException", "FileNotFoundException", "NullPointerException", "ClassCastException"],
+    correctIndex: 1,
+    explanation: "Opening a file that may not exist can throw the checked FileNotFoundException.",
+  },
+  // Collections
+  {
+    id: "col-1",
+    topicSlug: "collections",
+    question: "Which collection does NOT allow duplicate elements?",
+    options: ["ArrayList", "Set", "List", "Array"],
+    correctIndex: 1,
+    explanation: "A Set stores distinct objects and rejects duplicates. Lists allow duplicates.",
+  },
+  {
+    id: "col-2",
+    topicSlug: "collections",
+    question: "How do you access a value in a Map?",
+    options: ["By index", "By a unique key", "By iteration only", "By its hash address"],
+    correctIndex: 1,
+    explanation: "A Map stores key-value pairs; each value is retrieved using its unique key.",
+  },
+  {
+    id: "col-3",
+    topicSlug: "collections",
+    question: "What is the benefit of using generics like ArrayList<Rectangle>?",
+    options: [
+      "It runs without the JVM",
+      "It allows storing any type together",
+      "It removes the need for casts and catches type errors at compile time",
+      "It automatically sorts elements",
+    ],
+    correctIndex: 2,
+    explanation: "Generics let the compiler check element types at compile time and remove the need for explicit casting.",
+  },
+]
+
+export function getQuizzesByTopic(slug: string): QuizQuestion[] {
+  return quizzes.filter((q) => q.topicSlug === slug)
+}
