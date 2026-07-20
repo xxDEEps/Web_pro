@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Icon } from './Icon';
-import { useI18n } from '../i18n';
 import type { Block } from '../data/types';
 
 const KEYWORDS = new Set([
@@ -36,7 +35,6 @@ function highlight(code: string): string {
 }
 
 function CodeBlock({ code, lang }: { code: string; lang?: string }) {
-  const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   const copy = () => {
     navigator.clipboard.writeText(code).then(() => {
@@ -49,7 +47,7 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }) {
       <div className="code-header">
         <span>{lang || 'code'}</span>
         <button className="copy-btn" onClick={copy}>
-          {copied ? t({ en: 'copied', vi: 'đã sao chép' }) : t({ en: 'copy', vi: 'sao chép' })}
+          {copied ? 'copied' : 'copy'}
         </button>
       </div>
       <pre dangerouslySetInnerHTML={{ __html: highlight(code) }} />
@@ -58,7 +56,6 @@ function CodeBlock({ code, lang }: { code: string; lang?: string }) {
 }
 
 function Callout({ block }: { block: Extract<Block, { type: 'callout' }> }) {
-  const { t } = useI18n();
   const icons: Record<string, string> = {
     info: 'book',
     tip: 'check-circle',
@@ -70,29 +67,28 @@ function Callout({ block }: { block: Extract<Block, { type: 'callout' }> }) {
       {block.title && (
         <div className="callout-title">
           <Icon name={icons[block.variant]} size={15} />
-          {t(block.title)}
+          {block.title}
         </div>
       )}
-      <p>{t(block.text)}</p>
+      <p>{block.text}</p>
     </div>
   );
 }
 
 export function BlockRenderer({ block }: { block: Block }) {
-  const { t, tArr } = useI18n();
   switch (block.type) {
     case 'p':
-      return <p className="block-p">{t(block.text)}</p>;
+      return <p className="block-p">{block.text}</p>;
     case 'h':
-      return <h4 className="block-h">{t(block.text)}</h4>;
+      return <h4 className="block-h">{block.text}</h4>;
     case 'code':
       return <CodeBlock code={block.code} lang={block.lang} />;
     case 'img':
-      return <img className="block-img" src={block.src} alt={block.alt ? t(block.alt) : ''} loading="lazy" />;
+      return <img className="block-img" src={block.src} alt={block.alt || ''} loading="lazy" />;
     case 'ul':
       return (
         <ul className="block-ul">
-          {tArr(block.items).map((it, i) => (
+          {block.items.map((it, i) => (
             <li key={i}>{it}</li>
           ))}
         </ul>
@@ -100,7 +96,7 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'ol':
       return (
         <ol className="block-ol">
-          {tArr(block.items).map((it, i) => (
+          {block.items.map((it, i) => (
             <li key={i}>{it}</li>
           ))}
         </ol>
@@ -111,7 +107,7 @@ export function BlockRenderer({ block }: { block: Block }) {
       return (
         <p>
           <a href={block.href} target={block.external ? '_blank' : undefined} rel="noreferrer">
-            {t(block.label)}
+            {block.label}
           </a>
         </p>
       );

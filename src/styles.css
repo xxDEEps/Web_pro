@@ -304,35 +304,6 @@ button {
   border-color: var(--warning);
 }
 
-.lang-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text-soft);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  transition: border-color 0.12s, color 0.12s;
-}
-
-.lang-toggle:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.lang-current {
-  color: var(--primary);
-}
-
-.lang-other {
-  color: var(--text-dim);
-  font-weight: 600;
-}
-
 /* ---------- Hero ---------- */
 .hero {
   background: linear-gradient(135deg, #0f1f3d 0%, #142a4d 50%, #0a1a33 100%);

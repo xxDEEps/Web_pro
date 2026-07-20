@@ -2,84 +2,64 @@ import type { Lesson } from './types';
 
 export const inheritance: Lesson = {
   id: 'inheritance',
-  title: { en: 'Inheritance', vi: 'Inheritance' },
-  category: { en: 'Inheritance', vi: 'Inheritance' },
+  title: 'Inheritance',
+  category: 'Inheritance',
   icon: 'git-branch',
-  summary: {
-    en: 'Definition of inheritance, is-a, derived/super class, functions in inheritance, instanceof, casting.',
-    vi: 'Định nghĩa kế thừa, is-a, derived/super class, function trong inheritance, instanceof, casting.',
-  },
+  summary:
+    'Định nghĩa kế thừa, is-a, derived/super class, function trong inheritance, instanceof, casting.',
   outcomes: [
-    { en: 'Understand inheritance and the is-a relationship', vi: 'Hiểu kế thừa và is-a relationship' },
-    { en: 'Use extends and super to call the parent constructor/method', vi: 'Dùng extends, super để gọi constructor/method cha' },
-    { en: 'Use instanceof to check the dynamic type', vi: 'Dùng instanceof để kiểm tra dynamic type' },
-    { en: 'Safely cast between super/sub class', vi: 'Cast an toàn giữa super/sub class' },
+    'Hiểu kế thừa và is-a relationship',
+    'Dùng extends, super để gọi constructor/method cha',
+    'Dùng instanceof để kiểm tra dynamic type',
+    'Cast an toàn giữa super/sub class',
   ],
   sections: [
     {
       id: 'definition',
-      heading: { en: 'Definition', vi: 'Định nghĩa' },
+      heading: 'Định nghĩa',
       blocks: [
         {
           type: 'p',
-          text: {
-            en: 'OOP languages implement code structure reuse through inheritance — the second most prominent concept after encapsulation. Inheritance is a relationship between classes where one class inherits the entire structure of another. This relationship is hierarchical and tighter than composition.',
-            vi: 'Ngôn ngữ OOP triển khai tái sử dụng cấu trúc code qua inheritance — khái niệm nổi bật thứ hai sau encapsulation. Inheritance là quan hệ giữa các class mà một class kế thừa toàn bộ cấu trúc của class khác. Quan hệ này phân cấp, chặt chẽ hơn composition.',
-          },
+          text: 'Ngôn ngữ OOP triển khai tái sử dụng cấu trúc code qua inheritance — khái niệm nổi bật thứ hai sau encapsulation. Inheritance là quan hệ giữa các class mà một class kế thừa toàn bộ cấu trúc của class khác. Quan hệ này phân cấp, chặt chẽ hơn composition.',
         },
-        { type: 'img', src: '/images/inheritance1.png', alt: { en: 'Hierarchy', vi: 'Hierarchy' } },
+        { type: 'img', src: '/images/inheritance1.png', alt: 'Hierarchy' },
         {
           type: 'p',
-          text: {
-            en: 'In OO design, we care about a hierarchy that shows the progressive design of a set of classes. The root is an abstract entity, built up to create more concrete entities. The higher entity is the "parent", "base" or "super" class; the lower entity is the "child", "derived" or "sub" class.',
-            vi: 'Trong OO design, ta quan tâm hierarchy thể hiện thiết kế tiến triển của tập class. Root là entity trừu tượng, xây lên để tạo entity cụ thể hơn. Entity cấp cao là "parent", "base" hay "super" class; entity cấp thấp là "child", "derived" hay "sub" class.',
-          },
+          text: 'Trong OO design, ta quan tâm hierarchy thể hiện thiết kế tiến triển của tập class. Root là entity trừu tượng, xây lên để tạo entity cụ thể hơn. Entity cấp cao là "parent", "base" hay "super" class; entity cấp thấp là "child", "derived" hay "sub" class.',
         },
-        { type: 'img', src: '/images/inheritance2.png', alt: { en: 'Item hierarchy', vi: 'Item hierarchy' } },
+        { type: 'img', src: '/images/inheritance2.png', alt: 'Item hierarchy' },
       ],
     },
     {
       id: 'is-a',
-      heading: { en: 'is-a relationship', vi: 'is-a relationship' },
+      heading: 'is-a relationship',
       blocks: [
         {
           type: 'p',
-          text: {
-            en: 'HardGood is-a Item, ElectricalGood is-a HardGood and therefore is-a Item. ElectricalGood has type ElectricalGood, HardGood and Item. This is the hierarchical relationship that Java and OOP are designed to capture.',
-            vi: 'HardGood is-a Item, ElectricalGood is-a HardGood và do đó is-a Item. ElectricalGood có type ElectricalGood, HardGood và Item. Đây là quan hệ hierarchy mà Java và OOP thiết kế để nắm bắt.',
-          },
+          text: 'HardGood is-a Item, ElectricalGood is-a HardGood và do đó is-a Item. ElectricalGood có type ElectricalGood, HardGood và Item. Đây là quan hệ hierarchy mà Java và OOP thiết kế để nắm bắt.',
         },
-        { type: 'img', src: '/images/inheritance3.png', alt: { en: 'is-a', vi: 'is-a' } },
+        { type: 'img', src: '/images/inheritance3.png', alt: 'is-a' },
         {
           type: 'callout',
           variant: 'info',
-          title: { en: 'Polymorphism at class level', vi: 'Polymorphism ở class level' },
-          text: {
-            en: 'An object of class X with parent Y can take the form of an X or a Y object — appearing in multiple forms.',
-            vi: 'Object của class X có parent Y thì X có thể mang hình dạng object kiểu X hoặc Y — xuất hiện nhiều hình dạng.',
-          },
+          title: 'Polymorphism ở class level',
+          text: 'Object của class X có parent Y thì X có thể mang hình dạng object kiểu X hoặc Y — xuất hiện nhiều hình dạng.',
         },
       ],
     },
     {
       id: 'derived',
-      heading: { en: 'Derived and Super Class', vi: 'Derived và Super Class' },
+      heading: 'Derived và Super Class',
       blocks: [
         {
           type: 'p',
-          text: {
-            en: 'Example antique shop: vase, statue, painting. The classes share attributes (value, creator) and have specific ones. Factorise by creating an Item superclass; the other three are subclasses.',
-            vi: 'Ví dụ shop bán đồ cổ: vase, statue, painting. Các class có attribute chung (value, creator) và riêng. Factorise bằng Item superclass; ba class kia là subclass.',
-          },
+          text: 'Ví dụ shop bán đồ cổ: vase, statue, painting. Các class có attribute chung (value, creator) và riêng. Factorise bằng Item superclass; ba class kia là subclass.',
         },
-        { type: 'img', src: '/images/inheritance4.png', alt: { en: 'Antique shop classes', vi: 'Antique shop classes' } },
-        { type: 'img', src: '/images/inheritance5.png', alt: { en: 'Super/sub class', vi: 'Super/sub class' } },
+        { type: 'img', src: '/images/inheritance4.png', alt: 'Antique shop classes' },
+        { type: 'img', src: '/images/inheritance5.png', alt: 'Super/sub class' },
         {
           type: 'p',
-          text: {
-            en: 'Use the extends keyword to implement is-a.',
-            vi: 'Dùng từ khoá extends để triển khai is-a.',
-          },
+          text: 'Dùng từ khoá extends để triển khai is-a.',
         },
         {
           type: 'code',
@@ -90,78 +70,54 @@ export const inheritance: Lesson = {
     },
     {
       id: 'functions',
-      heading: { en: 'Functions in Inheritance', vi: 'Function trong Inheritance' },
+      heading: 'Function trong Inheritance',
       blocks: [
         {
           type: 'p',
-          text: {
-            en: 'A method added to the superclass is also inherited by subclasses. For example, adding output() to Item lets all three subclasses call it.',
-            vi: 'Method thêm vào superclass cũng được kế thừa ở subclass. Ví dụ thêm output() vào Item, ba subclass đều gọi được.',
-          },
+          text: 'Method thêm vào superclass cũng được kế thừa ở subclass. Ví dụ thêm output() vào Item, ba subclass đều gọi được.',
         },
         {
           type: 'callout',
           variant: 'rule',
-          title: { en: 'Access modifier rules', vi: 'Quy tắc access modifier' },
-          text: {
-            en: 'private: only within the class, not guaranteed in subclasses. protected: within the class and subclasses. public: everywhere.',
-            vi: 'private: chỉ trong class, không đảm bảo trong subclass. protected: trong class và subclass. public: mọi nơi.',
-          },
+          title: 'Quy tắc access modifier',
+          text: 'private: chỉ trong class, không đảm bảo trong subclass. protected: trong class và subclass. public: mọi nơi.',
         },
         {
           type: 'p',
-          text: {
-            en: 'Use super() to call the superclass constructor — it must be the first line in a subclass constructor. Use super.methodName() to call an overridden method.',
-            vi: 'Dùng super() để gọi constructor của superclass — phải là dòng đầu tiên trong constructor subclass. Dùng super.methodName() để gọi method bị override.',
-          },
+          text: 'Dùng super() để gọi constructor của superclass — phải là dòng đầu tiên trong constructor subclass. Dùng super.methodName() để gọi method bị override.',
         },
         {
           type: 'code',
           lang: 'java',
-          code: 'public class Vase extends Item {\n    private int height;\n    private String material;\n\n    public Vase() {\n        super(); // calls Item default constructor\n        height = 0;\n        material = "";\n    }\n    public Vase(int value, String creator, int height, String material) {\n        super(value, creator); // calls Item 2-arg constructor\n        this.height = height;\n        this.material = material;\n    }\n}',
+          code: 'public class Vase extends Item {\n    private int height;\n    private String material;\n\n    public Vase() {\n        super(); // gọi constructor mặc định của Item\n        height = 0;\n        material = "";\n    }\n    public Vase(int value, String creator, int height, String material) {\n        super(value, creator); // gọi constructor 2 tham số của Item\n        this.height = height;\n        this.material = material;\n    }\n}',
         },
         {
           type: 'callout',
           variant: 'rule',
-          text: {
-            en: 'A subclass does NOT inherit the superclass constructor by default. If a constructor does not explicitly call super(), the compiler inserts a call to the no-arg constructor of the superclass.',
-            vi: 'Subclass KHÔNG kế thừa constructor của superclass mặc định. Nếu constructor không gọi super() tường minh, compiler tự chèn gọi no-arg constructor của superclass.',
-          },
+          text: 'Subclass KHÔNG kế thừa constructor của superclass mặc định. Nếu constructor không gọi super() tường minh, compiler tự chèn gọi no-arg constructor của superclass.',
         },
         {
           type: 'p',
-          text: {
-            en: 'Overriding a method: a subclass redefines a method with the same signature. Use the @Override annotation to signal the intent to the compiler.',
-            vi: 'Override method: subclass định nghĩa lại method cùng signature. Dùng @Override annotation để báo compiler ý định override.',
-          },
+          text: 'Override method: subclass định nghĩa lại method cùng signature. Dùng @Override annotation để báo compiler ý định override.',
         },
         {
           type: 'p',
-          text: {
-            en: 'Hidden method: redefining a static method of the superclass.',
-            vi: 'Hidden method: định nghĩa lại static method của superclass.',
-          },
+          text: 'Hidden method: định nghĩa lại static method của superclass.',
         },
       ],
     },
     {
       id: 'instanceof',
-      heading: { en: 'instanceof and Casting', vi: 'instanceof và Casting' },
+      heading: 'instanceof và Casting',
       blocks: [
         {
           type: 'p',
-          text: {
-            en: 'A superclass-typed reference variable (Item tmp = v1;) can store the address of a subclass object — this is called the dynamic type. The static type is the type at declaration.',
-            vi: 'Biến reference kiểu superclass (Item tmp = v1;) có thể lưu địa chỉ object subclass — gọi là dynamic type. Static type là kiểu khi khai báo.',
-          },
+          text: 'Biến reference kiểu superclass (Item tmp = v1;) có thể lưu địa chỉ object subclass — gọi là dynamic type. Static type là kiểu khi khai báo.',
         },
-        { type: 'img', src: '/images/inheritance6.png', alt: { en: 'Dynamic type', vi: 'Dynamic type' } },
+        { type: 'img', src: '/images/inheritance6.png', alt: 'Dynamic type' },
         {
           type: 'p',
-          text: {
-            en: 'Use instanceof to check which object tmp is currently pointing to.',
-            vi: 'Dùng instanceof để kiểm tra tmp đang trỏ tới object nào.',
-          },
+          text: 'Dùng instanceof để kiểm tra tmp đang trỏ tới object nào.',
         },
         {
           type: 'code',
@@ -170,18 +126,12 @@ export const inheritance: Lesson = {
         },
         {
           type: 'p',
-          text: {
-            en: 'A superclass-typed variable can only call superclass methods. To call a subclass method, you must cast explicitly: ((Vase)tmp).putFlowers();. A wrong cast throws ClassCastException.',
-            vi: 'Biến kiểu superclass chỉ gọi được method của superclass. Để gọi method subclass, phải cast tường minh: ((Vase)tmp).putFlowers();. Cast sai kiểu sẽ ném ClassCastException.',
-          },
+          text: 'Biến kiểu superclass chỉ gọi được method của superclass. Để gọi method subclass, phải cast tường minh: ((Vase)tmp).putFlowers();. Cast sai kiểu sẽ ném ClassCastException.',
         },
         {
           type: 'callout',
           variant: 'tip',
-          text: {
-            en: 'Check the type with instanceof before an explicit cast.',
-            vi: 'Kiểm tra type bằng instanceof trước khi cast tường minh.',
-          },
+          text: 'Kiểm tra type bằng instanceof trước khi cast tường minh.',
         },
       ],
     },
