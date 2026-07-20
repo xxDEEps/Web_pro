@@ -8,7 +8,18 @@ import { polymorphism } from './polymorphism';
 import { arrayOfObjects } from './arrayOfObjects';
 import { collection } from './collection';
 
-export const modules: CourseModule[] = [
+import { introductionEn } from './en/introduction';
+import { ioEn, exceptionEn, dynamicMemoryEn } from './en/foundations2';
+import { foundationsEn } from './en/foundations';
+import { encapsulationEn } from './en/encapsulation';
+import { inheritanceEn } from './en/inheritance';
+import { polymorphismEn } from './en/polymorphism';
+import { arrayOfObjectsEn } from './en/arrayOfObjects';
+import { collectionEn } from './en/collection';
+
+import type { Lang } from '../hooks/useLanguage';
+
+const viModules: CourseModule[] = [
   {
     id: 'introduction-module',
     title: 'Introduction',
@@ -60,7 +71,65 @@ export const modules: CourseModule[] = [
   },
 ];
 
-export const allLessons = modules.flatMap((m) => m.lessons);
+const enModules: CourseModule[] = [
+  {
+    id: 'introduction-module',
+    title: 'Introduction',
+    part: 'Introduction',
+    description: 'Intro to OOP, terminology, UML, encapsulation, inheritance, polymorphism.',
+    lessons: [introductionEn],
+  },
+  {
+    id: 'foundations-module',
+    title: 'Foundations',
+    part: 'Foundations',
+    description: 'Java foundations, I/O, Exception, Dynamic Memory.',
+    lessons: [foundationsEn, ioEn, exceptionEn, dynamicMemoryEn],
+  },
+  {
+    id: 'encapsulation-module',
+    title: 'Encapsulation',
+    part: 'Encapsulation',
+    description: 'Class, object, constructor, this, package, access modifier.',
+    lessons: [encapsulationEn],
+  },
+  {
+    id: 'inheritance-module',
+    title: 'Inheritance',
+    part: 'Inheritance',
+    description: 'Inheritance, is-a, super, instanceof, casting.',
+    lessons: [inheritanceEn],
+  },
+  {
+    id: 'polymorphism-module',
+    title: 'Polymorphism',
+    part: 'Polymorphism',
+    description: 'Overloading, overriding, abstract class, interface.',
+    lessons: [polymorphismEn],
+  },
+  {
+    id: 'array-module',
+    title: 'Array of Objects',
+    part: 'Array of Objects',
+    description: 'Object arrays, File I/O, serialization.',
+    lessons: [arrayOfObjectsEn],
+  },
+  {
+    id: 'collections-module',
+    title: 'Collections in Java',
+    part: 'Collections',
+    description: 'ADT, List, Set, Map, supporting classes.',
+    lessons: [collectionEn],
+  },
+];
+
+export function getModules(lang: Lang): CourseModule[] {
+  return lang === 'vi' ? viModules : enModules;
+}
+
+export function getAllLessons(lang: Lang) {
+  return getModules(lang).flatMap((m) => m.lessons);
+}
 
 export const references: { title: string; author: string; url?: string }[] = [
   {
@@ -124,3 +193,102 @@ export const workshops: { label: string; href: string }[] = [
   { label: 'Workshop 5', href: '/workshop/workshop5.pdf' },
   { label: 'Workshop 6', href: '/workshop/workshop6.pdf' },
 ];
+
+export const ui = {
+  en: {
+    brandSub: 'FPT · OOP Java',
+    searchPlaceholder: 'Search lessons...',
+    noResults: 'No results found',
+    overview: 'Overview',
+    home: 'Home',
+    resources: 'Resources',
+    workshops: 'Workshops',
+    references: 'References',
+    about: 'About this course',
+    progress: 'Study progress',
+    lessons: 'lessons',
+    completed: 'completed',
+    breadcrumbHome: 'Home',
+    breadcrumbResources: 'Resources',
+    breadcrumbWorkshops: 'Workshops',
+    breadcrumbReferences: 'References',
+    breadcrumbAbout: 'About this course',
+    saveLesson: 'Save lesson',
+    switchLight: 'Switch to light theme',
+    switchDark: 'Switch to dark theme',
+    switchVi: 'Chuyển sang tiếng Việt',
+    switchEn: 'Switch to English',
+    learningJourney: 'Learning journey',
+    lessonsCount: 'lessons',
+    doneCount: 'done',
+    learningOutcomes: 'Learning outcomes',
+    aboutCourse: 'About this course',
+    aboutEyebrow: 'About the course',
+    library: 'Library',
+    resourcesSummary: 'Lecture slides and further reading for the whole course.',
+    practice: 'Practice',
+    workshopsSummary: 'Workshops applying knowledge from each chapter.',
+    referencesSummary: 'Books and official references for the course.',
+    courseCode: 'Course code',
+    prerequisite: 'Prerequisite',
+    lessonCount: 'Lessons',
+    completedCount: 'Completed',
+    academicPolicy: 'Academic policy',
+    policyText:
+      'Cheating, plagiarism and copyright infringement are serious violations. Cheating in a test is defined as talking, looking at a peer\'s work, or any secret communication. Plagiarism is using someone else\'s work without citation. Copyright infringement is copying material without the owner\'s permission.',
+    lessonObjectives: 'Lesson objectives',
+    contents: 'Contents',
+    materialsWorkshop: 'Materials & Workshop',
+    markDone: 'Mark as completed',
+    done: 'Completed',
+  },
+  vi: {
+    brandSub: 'FPT · OOP Java',
+    searchPlaceholder: 'Tìm bài học...',
+    noResults: 'Không tìm thấy kết quả',
+    overview: 'Tổng quan',
+    home: 'Trang chủ',
+    resources: 'Tài nguyên',
+    workshops: 'Workshops',
+    references: 'Tài liệu tham khảo',
+    about: 'Giới thiệu môn',
+    progress: 'Tiến độ học tập',
+    lessons: 'bài',
+    completed: 'Đã hoàn thành',
+    breadcrumbHome: 'Trang chủ',
+    breadcrumbResources: 'Tài nguyên',
+    breadcrumbWorkshops: 'Workshops',
+    breadcrumbReferences: 'Tài liệu tham khảo',
+    breadcrumbAbout: 'Giới thiệu môn',
+    saveLesson: 'Lưu bài',
+    switchLight: 'Chuyển sang giao diện sáng',
+    switchDark: 'Chuyển sang giao diện tối',
+    switchVi: 'Chuyển sang tiếng Việt',
+    switchEn: 'Switch to English',
+    learningJourney: 'Hành trình học tập',
+    lessonsCount: 'bài',
+    doneCount: 'đã xong',
+    learningOutcomes: 'Mục tiêu học tập',
+    aboutCourse: 'Về môn học',
+    aboutEyebrow: 'Về môn học',
+    library: 'Thư viện',
+    resourcesSummary: 'Slide bài giảng và tài liệu đọc thêm cho toàn bộ môn học.',
+    practice: 'Thực hành',
+    workshopsSummary: 'Bài thực hành áp dụng kiến thức từng chương.',
+    referencesSummary: 'Sách và nguồn tham khảo chính thức của môn học.',
+    courseCode: 'Mã môn',
+    prerequisite: 'Tiên quyết',
+    lessonCount: 'Số bài học',
+    completedCount: 'Đã hoàn thành',
+    academicPolicy: 'Chính sách học thuật',
+    policyText:
+      'Gian lận, đạo văn và vi phạm bản quyền là các vi phạm nghiêm trọng. Gian lận trong kiểm tra được hiểu là nói chuyện, nhìn bài bạn hay bất kỳ cách truyền thông bí mật nào. Đạo văn là sử dụng công sức người khác mà không trích dẫn. Vi phạm bản quyền là sao chép tài liệu mà không xin phép chủ sở hữu.',
+    lessonObjectives: 'Mục tiêu bài học',
+    contents: 'Nội dung',
+    materialsWorkshop: 'Tài liệu & Workshop',
+    markDone: 'Đánh dấu hoàn thành',
+    done: 'Đã hoàn thành',
+  },
+} as const;
+
+export type UIStrings = (typeof ui)['en'] | (typeof ui)['vi'];

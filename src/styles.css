@@ -94,6 +94,29 @@ body {
   overflow: hidden;
 }
 
+.lang-toggle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-soft);
+}
+
+.lang-toggle .lang-label {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 18px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-size: 11px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lang-toggle:hover .lang-label {
+  transform: scale(1.08);
+}
+
 .theme-toggle .icon-wrap {
   display: inline-grid;
   place-items: center;

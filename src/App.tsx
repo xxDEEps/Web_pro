@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Icon } from './components/Icon';
 import { BlockRenderer } from './components/BlockRenderer';
-import { modules, allLessons, references, resources, workshops } from './data';
-import { courseInfo, type Lesson } from './data/types';
+import { getModules, getAllLessons, references, resources, workshops, ui } from './data';
+import { courseInfoEn, courseInfoVi, type Lesson, type CourseInfo, type CourseModule } from './data/types';
 import { useProgress } from './hooks/useLocalStorage';
 import { useTheme } from './hooks/useTheme';
+import { useLanguage } from './hooks/useLanguage';
+import type { UIStrings } from './data';
 
 type View =
   | { kind: 'home' }
@@ -20,6 +22,12 @@ export function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const progress = useProgress();
   const { theme, toggle } = useTheme();
+  const { lang, toggle: toggleLang } = useLanguage();
+  const t = ui[lang];
+  const courseInfo = lang === 'vi' ? courseInfoVi : courseInfoEn;
+
+  const modules = useMemo(() => getModules(lang), [lang]);
+  const allLessons = useMemo(() => getAllLessons(lang), [lang]);
 
   const go = (v: View) => {
     setView(v);
@@ -35,7 +43,7 @@ export function App() {
       const hay = (l.title + ' ' + l.summary + ' ' + l.category + ' ' + l.outcomes.join(' ')).toLowerCase();
       return hay.includes(q);
     });
-  }, [query]);
+  }, [query, allLessons]);
 
   const completedCount = progress.completed.length;
   const totalLessons = allLessons.length;
@@ -64,7 +72,7 @@ export function App() {
             <Icon name="search" size={16} />
           </span>
           <input
-            placeholder="Tìm bài học..."
+            placeholder={t.searchPlaceholder}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -72,7 +80,7 @@ export function App() {
 
         {query.trim() ? (
           <div className="search-results">
-            {searchResults.length === 0 && <div className="empty">Không tìm thấy kết quả</div>}
+            {searchResults.length === 0 && <div className="empty">{t.noResults}</div>}
             {searchResults.map((l) => (
               <div key={l.id} className="search-result" onClick={() => go({ kind: 'lesson', lessonId: l.id })}>
                 <div className="sr-cat">{l.category}</div>
@@ -84,12 +92,12 @@ export function App() {
         ) : (
           <>
             <div className="nav-group">
-              <div className="nav-group-title">Tổng quan</div>
-              <NavItem icon="home" label="Trang chủ" active={view.kind === 'home'} onClick={() => go({ kind: 'home' })} />
-              <NavItem icon="book" label="Tài nguyên" active={view.kind === 'resources'} onClick={() => go({ kind: 'resources' })} />
-              <NavItem icon="list" label="Workshops" active={view.kind === 'workshops'} onClick={() => go({ kind: 'workshops' })} />
-              <NavItem icon="sparkles" label="Tài liệu tham khảo" active={view.kind === 'references'} onClick={() => go({ kind: 'references' })} />
-              <NavItem icon="cube" label="Giới thiệu môn" active={view.kind === 'about'} onClick={() => go({ kind: 'about' })} />
+              <div className="nav-group-title">{t.overview}</div>
+              <NavItem icon="home" label={t.home} active={view.kind === 'home'} onClick={() => go({ kind: 'home' })} />
+              <NavItem icon="book" label={t.resources} active={view.kind === 'resources'} onClick={() => go({ kind: 'resources' })} />
+              <NavItem icon="list" label={t.workshops} active={view.kind === 'workshops'} onClick={() => go({ kind: 'workshops' })} />
+              <NavItem icon="sparkles" label={t.references} active={view.kind === 'references'} onClick={() => go({ kind: 'references' })} />
+              <NavItem icon="cube" label={t.about} active={view.kind === 'about'} onClick={() => go({ kind: 'about' })} />
             </div>
 
             {modules.map((m) => (
@@ -109,12 +117,12 @@ export function App() {
             ))}
 
             <div className="nav-extra">
-              <div className="nav-group-title">Tiến độ học tập</div>
+              <div className="nav-group-title">{t.progress}</div>
               <div className="progress-bar">
                 <div className="progress-fill" style={{ width: `${pct}%` }} />
               </div>
               <div className="progress-text">
-                <span>{completedCount}/{totalLessons} bài</span>
+                <span>{completedCount}/{totalLessons} {t.lessonsCount}</span>
                 <span>{pct}%</span>
               </div>
             </div>
@@ -128,7 +136,7 @@ export function App() {
             <Icon name="menu" />
           </button>
           <div className="breadcrumb">
-            {view.kind === 'home' && <span className="crumb-current">Trang chủ</span>}
+            {view.kind === 'home' && <span className="crumb-current">{t.breadcrumbHome}</span>}
             {view.kind === 'lesson' && currentLesson && (
               <>
                 <span>{currentLesson.category}</span>
@@ -136,16 +144,16 @@ export function App() {
                 <span className="crumb-current">{currentLesson.title}</span>
               </>
             )}
-            {view.kind === 'resources' && <span className="crumb-current">Tài nguyên</span>}
-            {view.kind === 'workshops' && <span className="crumb-current">Workshops</span>}
-            {view.kind === 'references' && <span className="crumb-current">Tài liệu tham khảo</span>}
-            {view.kind === 'about' && <span className="crumb-current">Giới thiệu môn</span>}
+            {view.kind === 'resources' && <span className="crumb-current">{t.breadcrumbResources}</span>}
+            {view.kind === 'workshops' && <span className="crumb-current">{t.breadcrumbWorkshops}</span>}
+            {view.kind === 'references' && <span className="crumb-current">{t.breadcrumbReferences}</span>}
+            {view.kind === 'about' && <span className="crumb-current">{t.breadcrumbAbout}</span>}
           </div>
           {currentLesson && (
             <div className="topbar-actions">
               <button
                 className={`icon-btn ${progress.isBookmarked(currentLesson.id) ? 'active' : ''}`}
-                title="Lưu bài"
+                title={t.saveLesson}
                 onClick={() => progress.toggleBookmark(currentLesson.id)}
               >
                 <Icon name="bookmark" />
@@ -153,8 +161,15 @@ export function App() {
             </div>
           )}
           <button
+            className="icon-btn lang-toggle"
+            title={lang === 'en' ? 'Chuyển sang tiếng Việt' : 'Switch to English'}
+            onClick={toggleLang}
+          >
+            <span className="lang-label">{lang === 'en' ? 'VI' : 'EN'}</span>
+          </button>
+          <button
             className="icon-btn theme-toggle"
-            title={theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+            title={theme === 'dark' ? t.switchLight : t.switchDark}
             onClick={toggle}
           >
             <span className="icon-wrap">
@@ -164,11 +179,11 @@ export function App() {
         </header>
 
         <main className="content">
-          {view.kind === 'home' && <Home onOpen={go} progress={progress} />}
-          {view.kind === 'about' && <About />}
-          {view.kind === 'resources' && <Resources />}
-          {view.kind === 'workshops' && <Workshops />}
-          {view.kind === 'references' && <References />}
+          {view.kind === 'home' && <Home onOpen={go} progress={progress} t={t} courseInfo={courseInfo} modules={modules} allLessons={allLessons} />}
+          {view.kind === 'about' && <About t={t} courseInfo={courseInfo} />}
+          {view.kind === 'resources' && <Resources t={t} />}
+          {view.kind === 'workshops' && <Workshops t={t} />}
+          {view.kind === 'references' && <References t={t} />}
           {view.kind === 'lesson' && currentLesson && (
             <LessonView
               lesson={currentLesson}
@@ -178,6 +193,7 @@ export function App() {
               prev={prevLesson}
               next={nextLesson}
               go={go}
+              t={t}
             />
           )}
         </main>
@@ -229,9 +245,17 @@ function highlightMatch(text: string, q: string) {
 function Home({
   onOpen,
   progress,
+  t,
+  courseInfo,
+  modules,
+  allLessons,
 }: {
   onOpen: (v: View) => void;
   progress: ReturnType<typeof useProgress>;
+  t: UIStrings;
+  courseInfo: CourseInfo;
+  modules: CourseModule[];
+  allLessons: Lesson[];
 }) {
   return (
     <>
@@ -244,25 +268,25 @@ function Home({
         <p>{courseInfo.description}</p>
         <div className="hero-meta">
           <div className="hero-meta-item">
-            <span className="hero-meta-label">Mã môn</span>
+            <span className="hero-meta-label">{t.courseCode}</span>
             <span className="hero-meta-value">{courseInfo.code}</span>
           </div>
           <div className="hero-meta-item">
-            <span className="hero-meta-label">Tiên quyết</span>
+            <span className="hero-meta-label">{t.prerequisite}</span>
             <span className="hero-meta-value">{courseInfo.prerequisite}</span>
           </div>
           <div className="hero-meta-item">
-            <span className="hero-meta-label">Số bài học</span>
+            <span className="hero-meta-label">{t.lessonCount}</span>
             <span className="hero-meta-value">{allLessons.length}</span>
           </div>
           <div className="hero-meta-item">
-            <span className="hero-meta-label">Đã hoàn thành</span>
+            <span className="hero-meta-label">{t.completedCount}</span>
             <span className="hero-meta-value">{progress.completed.length}/{allLessons.length}</span>
           </div>
         </div>
       </section>
 
-      <h2 className="section-heading">Hành trình học tập</h2>
+      <h2 className="section-heading">{t.learningJourney}</h2>
       <div className="module-grid">
         {modules.map((m) => {
           const doneCount = m.lessons.filter((l) => progress.isCompleted(l.id)).length;
@@ -278,7 +302,7 @@ function Home({
               <h3>{m.title}</h3>
               <p>{m.description}</p>
               <div className="card-meta">
-                <span>{m.lessons.length} bài</span>
+                <span>{m.lessons.length} {t.lessonsCount}</span>
                 <span>
                   {doneCount}/{m.lessons.length} ✓
                 </span>
@@ -290,7 +314,7 @@ function Home({
 
       <div className="section-divider" />
 
-      <h2 className="section-heading">Mục tiêu học tập</h2>
+      <h2 className="section-heading">{t.learningOutcomes}</h2>
       <div className="outcomes">
         <ul>
           {courseInfo.outcomes.map((o, i) => (
@@ -302,33 +326,29 @@ function Home({
   );
 }
 
-function About() {
+function About({ t, courseInfo }: { t: UIStrings; courseInfo: CourseInfo }) {
   return (
     <>
       <div className="lesson-header">
-        <div className="lesson-eyebrow">Về môn học</div>
+        <div className="lesson-eyebrow">{t.aboutEyebrow}</div>
         <h1 className="lesson-title">{courseInfo.title}</h1>
         <p className="lesson-summary">{courseInfo.description}</p>
       </div>
       <div className="outcomes">
-        <div className="outcomes-title">Mục tiêu học tập (Learning Outcomes)</div>
+        <div className="outcomes-title">{t.learningOutcomes}</div>
         <ul>
           {courseInfo.outcomes.map((o, i) => (
             <li key={i}>{o}</li>
           ))}
         </ul>
       </div>
-      <h3 className="section-heading">Chính sách học thuật</h3>
-      <p className="block-p">
-        Gian lận, đạo văn và vi phạm bản quyền là các vi phạm nghiêm trọng. Gian lận trong kiểm tra được hiểu là nói
-        chuyện, nhìn bài bạn hay bất kỳ cách truyền thông bí mật nào. Đạo văn là sử dụng công sức người khác mà không
-        trích dẫn. Vi phạm bản quyền là sao chép tài liệu mà không xin phép chủ sở hữu.
-      </p>
+      <h3 className="section-heading">{t.academicPolicy}</h3>
+      <p className="block-p">{t.policyText}</p>
     </>
   );
 }
 
-function Resources() {
+function Resources({ t }: { t: UIStrings }) {
   const groups = resources.reduce<Record<string, typeof resources>>((acc, r) => {
     (acc[r.group] ||= []).push(r);
     return acc;
@@ -336,9 +356,9 @@ function Resources() {
   return (
     <>
       <div className="lesson-header">
-        <div className="lesson-eyebrow">Thư viện</div>
-        <h1 className="lesson-title">Tài nguyên</h1>
-        <p className="lesson-summary">Slide bài giảng và tài liệu đọc thêm cho toàn bộ môn học.</p>
+        <div className="lesson-eyebrow">{t.library}</div>
+        <h1 className="lesson-title">{t.resources}</h1>
+        <p className="lesson-summary">{t.resourcesSummary}</p>
       </div>
       {Object.entries(groups).map(([group, items]) => (
         <div key={group} className="section">
@@ -359,13 +379,13 @@ function Resources() {
   );
 }
 
-function Workshops() {
+function Workshops({ t }: { t: UIStrings }) {
   return (
     <>
       <div className="lesson-header">
-        <div className="lesson-eyebrow">Thực hành</div>
-        <h1 className="lesson-title">Workshops</h1>
-        <p className="lesson-summary">Bài thực hành áp dụng kiến thức từng chương.</p>
+        <div className="lesson-eyebrow">{t.practice}</div>
+        <h1 className="lesson-title">{t.workshops}</h1>
+        <p className="lesson-summary">{t.workshopsSummary}</p>
       </div>
       <ul className="resource-list">
         {workshops.map((w) => (
@@ -381,13 +401,13 @@ function Workshops() {
   );
 }
 
-function References() {
+function References({ t }: { t: UIStrings }) {
   return (
     <>
       <div className="lesson-header">
-        <div className="lesson-eyebrow">Thư viện</div>
-        <h1 className="lesson-title">Tài liệu tham khảo</h1>
-        <p className="lesson-summary">Sách và nguồn tham khảo chính thức của môn học.</p>
+        <div className="lesson-eyebrow">{t.library}</div>
+        <h1 className="lesson-title">{t.references}</h1>
+        <p className="lesson-summary">{t.referencesSummary}</p>
       </div>
       <ul className="resource-list">
         {references.map((r, i) => (
@@ -415,6 +435,7 @@ function LessonView({
   prev,
   next,
   go,
+  t,
 }: {
   lesson: Lesson;
   moduleName: string;
@@ -423,6 +444,7 @@ function LessonView({
   prev: Lesson | null;
   next: Lesson | null;
   go: (v: View) => void;
+  t: UIStrings;
 }) {
   const L = lesson;
   return (
@@ -436,14 +458,14 @@ function LessonView({
         <div className="lesson-actions">
           <button className={`btn primary ${done ? 'ghost' : ''}`} onClick={onToggleDone}>
             <Icon name="check" size={15} />
-            {done ? 'Đã hoàn thành' : 'Đánh dấu hoàn thành'}
+            {done ? t.done : t.markDone}
           </button>
         </div>
       </div>
 
       {L.outcomes?.length > 0 && (
         <div className="outcomes">
-          <div className="outcomes-title">Mục tiêu bài học</div>
+          <div className="outcomes-title">{t.lessonObjectives}</div>
           <ul>
             {L.outcomes.map((o: string, i: number) => (
               <li key={i}>{o}</li>
@@ -453,7 +475,7 @@ function LessonView({
       )}
 
       <div className="toc">
-        <div className="toc-title">Nội dung</div>
+        <div className="toc-title">{t.contents}</div>
         <ul>
           {L.sections.map((s: any) => (
             <li key={s.id}>
@@ -474,7 +496,7 @@ function LessonView({
 
       {(L.resources?.length > 0 || L.workshop) && (
         <div className="section">
-          <h3 className="section-heading">Tài liệu & Workshop</h3>
+          <h3 className="section-heading">{t.materialsWorkshop}</h3>
           {L.resources?.length > 0 && (
             <ul className="resource-list">
               {L.resources.map((r: any) => (

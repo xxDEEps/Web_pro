@@ -34,7 +34,36 @@ export interface CourseModule {
   lessons: Lesson[];
 }
 
-export const courseInfo = {
+export interface CourseInfo {
+  code: string;
+  title: string;
+  university: string;
+  prerequisite: string;
+  description: string;
+  outcomes: string[];
+}
+
+export const courseInfoEn: CourseInfo = {
+  code: 'PRO192',
+  title: 'Object-Oriented Programming using Java',
+  university: 'FPT University',
+  prerequisite: 'PRF192',
+  description:
+    'This course introduces students to object-oriented programming. Students learn how to build reusable objects, encapsulate data and logic within a class, inherit from other classes, and implement polymorphism.',
+  outcomes: [
+    'Understand object-oriented programming (OOP) concepts for problem solving and the basic principles of OOP in Java',
+    'Practice the basic syntax and semantics of Java to write programs and use concepts such as variables, conditions, and loops',
+    'Use streams to read/write data from/to different sources/destinations',
+    'Discuss the benefits and usage of Java\'s exception-handling mechanism',
+    'Identify classes, objects, class members, and their relationships for a given problem',
+    'Explain and illustrate the concepts of Polymorphism, Encapsulation, Abstraction, and Inheritance in Java',
+    'Discuss the principles and usage of abstract classes and interfaces in Java',
+    'Understand and implement a complete program using an object array',
+    'Explain the principles and usage of several abstract data types (list, set, map)',
+  ],
+};
+
+export const courseInfoVi: CourseInfo = {
   code: 'PRO192',
   title: 'Object-Oriented Programming using Java',
   university: 'FPT University',
