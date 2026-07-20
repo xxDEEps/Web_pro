@@ -4,6 +4,7 @@ import { BlockRenderer } from './components/BlockRenderer';
 import { modules, allLessons, references, resources, workshops } from './data';
 import { courseInfo, type Lesson } from './data/types';
 import { useProgress } from './hooks/useLocalStorage';
+import { useTheme } from './hooks/useTheme';
 
 type View =
   | { kind: 'home' }
@@ -18,6 +19,7 @@ export function App() {
   const [query, setQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const progress = useProgress();
+  const { theme, toggle } = useTheme();
 
   const go = (v: View) => {
     setView(v);
@@ -150,6 +152,15 @@ export function App() {
               </button>
             </div>
           )}
+          <button
+            className="icon-btn theme-toggle"
+            title={theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'}
+            onClick={toggle}
+          >
+            <span className="icon-wrap">
+              <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
+            </span>
+          </button>
         </header>
 
         <main className="content">

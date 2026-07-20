@@ -8,6 +8,19 @@
     <meta name="description" content="Tài liệu tham khảo và học tập môn PRO192 - Lập trình hướng đối tượng với Java tại Đại học FPT." />
   </head>
   <body>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('pro192:theme');
+          if (t !== 'dark' && t !== 'light') {
+            t = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+          }
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -27,6 +27,43 @@
   --radius-sm: 10px;
   --font: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  --hero-grad-1: #0f1f3d;
+  --hero-grad-2: #142a4d;
+  --hero-grad-3: #0a1a33;
+  --topbar-bg: rgba(11, 18, 32, 0.82);
+  --code-text: #d6e2ff;
+}
+
+:root[data-theme='light'] {
+  --bg: #f6f8fc;
+  --bg-elev: #ffffff;
+  --bg-soft: #eef2f9;
+  --surface: #ffffff;
+  --surface-2: #e8edf5;
+  --border: #d6deeb;
+  --border-soft: #e4e9f2;
+  --text: #1a2233;
+  --text-soft: #4a5568;
+  --text-dim: #8a96ad;
+  --primary: #2563eb;
+  --primary-600: #1d4ed8;
+  --primary-700: #1e40af;
+  --accent: #0891b2;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --code-bg: #f8fafc;
+  --code-border: #e2e8f0;
+  --callout-info: #e0edff;
+  --callout-tip: #d6f5e8;
+  --callout-rule: #fef3c7;
+  --callout-problem: #fee2e2;
+  --shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+  --hero-grad-1: #eaf2ff;
+  --hero-grad-2: #dceaff;
+  --hero-grad-3: #f0f5ff;
+  --topbar-bg: rgba(255, 255, 255, 0.82);
+  --code-text: #1e293b;
 }
 
 * {
@@ -49,6 +86,18 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.theme-toggle {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle .icon-wrap {
+  display: inline-grid;
+  place-items: center;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
 }
 
 a {
@@ -254,7 +303,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(11, 18, 32, 0.82);
+  background: var(--topbar-bg);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
   padding: 14px 36px;
@@ -306,7 +355,7 @@ button {
 
 /* ---------- Hero ---------- */
 .hero {
-  background: linear-gradient(135deg, #0f1f3d 0%, #142a4d 50%, #0a1a33 100%);
+  background: linear-gradient(135deg, var(--hero-grad-1) 0%, var(--hero-grad-2) 50%, var(--hero-grad-3) 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 38px 36px;

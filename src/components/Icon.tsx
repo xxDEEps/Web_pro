@@ -22,6 +22,8 @@ const paths: Record<string, string> = {
   download: 'M12 3v10.6l3.3-3.3 1.4 1.4L12 16.6l-4.7-4.7 1.4-1.4 3.3 3.3V3h0zM4 19h16v2H4v-2z',
   external: 'M14 3h7v7h-2V6.4l-9.3 9.3-1.4-1.4L17.6 5H14V3zM5 5h5v2H5v12h12v-5h2v7H3V3h7v2H5z',
   home: 'M12 3l9 8h-3v9h-4v-6H10v6H6v-9H3l9-8z',
+  sun: 'M12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.5 4.9l1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1zm12 12l1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1zM1 11h3v2H1v-2zm19 0h3v2h-3v-2zM3.5 19.1l2.1-2.1 1.4 1.4-2.1 2.1-1.4-1.4zm12-12l2.1-2.1 1.4 1.4-2.1 2.1-1.4-1.4z',
+  moon: 'M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z',
 };
 
 export function Icon({ name, size = 18 }: { name: string; size?: number }): JSX.Element {
