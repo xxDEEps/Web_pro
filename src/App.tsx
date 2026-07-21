@@ -149,8 +149,8 @@ export function App() {
             {view.kind === 'references' && <span className="crumb-current">{t.breadcrumbReferences}</span>}
             {view.kind === 'about' && <span className="crumb-current">{t.breadcrumbAbout}</span>}
           </div>
-          {currentLesson && (
-            <div className="topbar-actions">
+          <div className="topbar-actions">
+            {currentLesson && (
               <button
                 className={`icon-btn ${progress.isBookmarked(currentLesson.id) ? 'active' : ''}`}
                 title={t.saveLesson}
@@ -158,24 +158,24 @@ export function App() {
               >
                 <Icon name="bookmark" />
               </button>
-            </div>
-          )}
-          <button
-            className="icon-btn lang-toggle"
-            title={lang === 'en' ? 'Chuyển sang tiếng Việt' : 'Switch to English'}
-            onClick={toggleLang}
-          >
-            <span className="lang-label">{lang === 'en' ? 'VI' : 'EN'}</span>
-          </button>
-          <button
-            className="icon-btn theme-toggle"
-            title={theme === 'dark' ? t.switchLight : t.switchDark}
-            onClick={toggle}
-          >
-            <span className="icon-wrap">
-              <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
-            </span>
-          </button>
+            )}
+            <button
+              className="icon-btn lang-toggle"
+              title={lang === 'en' ? 'Chuyển sang tiếng Việt' : 'Switch to English'}
+              onClick={toggleLang}
+            >
+              <span className="lang-label">{lang === 'en' ? 'VI' : 'EN'}</span>
+            </button>
+            <button
+              className="icon-btn theme-toggle"
+              title={theme === 'dark' ? t.switchLight : t.switchDark}
+              onClick={toggle}
+            >
+              <span className="icon-wrap">
+                <Icon name={theme === 'dark' ? 'sun' : 'moon'} />
+              </span>
+            </button>
+          </div>
         </header>
 
         <main className="content">
