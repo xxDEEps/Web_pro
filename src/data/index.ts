@@ -241,6 +241,7 @@ export const ui = {
     materialsWorkshop: 'Materials & Workshop',
     markDone: 'Mark as completed',
     done: 'Completed',
+    visits: 'Visits',
   },
   vi: {
     brandSub: 'FPT · OOP Java',
@@ -288,6 +289,7 @@ export const ui = {
     materialsWorkshop: 'Tài liệu & Workshop',
     markDone: 'Đánh dấu hoàn thành',
     done: 'Đã hoàn thành',
+    visits: 'Lượt truy cập',
   },
 } as const;
 

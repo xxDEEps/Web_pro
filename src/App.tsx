@@ -6,6 +6,7 @@ import { courseInfoEn, courseInfoVi, type Lesson, type CourseInfo, type CourseMo
 import { useProgress } from './hooks/useLocalStorage';
 import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
+import { useVisitCount } from './hooks/useVisitCount';
 import type { UIStrings } from './data';
 
 type View =
@@ -21,6 +22,7 @@ export function App() {
   const [query, setQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const progress = useProgress();
+  const visitCount = useVisitCount();
   const { theme, toggle } = useTheme();
   const { lang, toggle: toggleLang } = useLanguage();
   const t = ui[lang];
@@ -124,6 +126,10 @@ export function App() {
               <div className="progress-text">
                 <span>{completedCount}/{totalLessons} {t.lessonsCount}</span>
                 <span>{pct}%</span>
+              </div>
+              <div className="visit-count">
+                <Icon name="eye" size={14} />
+                <span>{t.visits}: {visitCount ?? '—'}</span>
               </div>
             </div>
           </>

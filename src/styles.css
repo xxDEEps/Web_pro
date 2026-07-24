@@ -322,6 +322,24 @@ button {
   justify-content: space-between;
 }
 
+.visit-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.visit-count svg {
+  color: var(--accent);
+}
+
 /* ---------- Header ---------- */
 .topbar {
   position: sticky;
