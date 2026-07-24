@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { supabase } from '../lib/supabase';
+import { fetchVisitCount, incrementVisitCount } from '../lib/supabase';
 
 export function useVisitCount() {
   const [count, setCount] = useState<number | null>(null);
@@ -8,24 +8,12 @@ export function useVisitCount() {
     let cancelled = false;
 
     (async () => {
-      const { data, error } = await supabase
-        .from('site_visits')
-        .select('count')
-        .eq('id', 1)
-        .maybeSingle();
+      const current = await fetchVisitCount();
+      if (cancelled || current === null) return;
 
-      if (error || !data) {
-        if (!cancelled) setCount(null);
-        return;
-      }
-
-      const next = data.count + 1;
-      if (!cancelled) setCount(next);
-
-      await supabase
-        .from('site_visits')
-        .update({ count: next, updated_at: new Date().toISOString() })
-        .eq('id', 1);
+      const next = current + 1;
+      setCount(next);
+      incrementVisitCount(next);
     })();
 
     return () => {
